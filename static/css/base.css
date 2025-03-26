@@ -13,7 +13,7 @@
 body {
   background: #FDFAF6; /* cream */
   font-family: 'Playfair Display', serif; /* body text */
-  color: #0C1559;
+  color: #0C1559; /* navy */
   min-height: 100vh;
   display: flex;
   flex-direction: column; /* nav on top, main below */
@@ -33,7 +33,7 @@ header.navbar {
 /* Nav links */
 header.navbar a {
   text-decoration: none;
-  color: #fff;  
+  color: #fff;
   margin-left: 20px;
   font-size: 1.1em;
 }
@@ -56,6 +56,7 @@ h1 {
   font-family: 'Dawning of a New Day', cursive;
   font-weight: 700;
   font-size: 3rem; /* Adjust as desired */
+  text-align: center; 
 }
 
 h2, h3, .profile-heading {
@@ -63,6 +64,9 @@ h2, h3, .profile-heading {
   font-weight: 700;
 }
 
+hr {
+  margin-top: 1rem; /* adjust as needed */
+}
 /* --------------------------
    6) Wishlist Grid & Item
 --------------------------- */
@@ -110,7 +114,7 @@ h2, h3, .profile-heading {
 /* “View” button, if desired */
 .wishlist-item .btn {
   display: inline-block;
-  background: #0C1559;
+  background: #0C1559; /* navy */
   color: #fff;
   padding: 8px 12px;
   border-radius: 4px;
@@ -118,7 +122,7 @@ h2, h3, .profile-heading {
   font-size: 0.9rem;
 }
 .wishlist-item .btn:hover {
-  background: #131f77;
+  background: #131f77; /* slightly darker navy */
 }
 
 /* --------------------------
@@ -148,7 +152,7 @@ h2, h3, .profile-heading {
 --------------------------- */
 a.custom-link {
   color: #0C1559;
-  text-decoration: none;
+  text-decoration: underline;
   font-weight: bold; /* optional */
 }
 a.custom-link:hover {
@@ -183,20 +187,201 @@ a.custom-link:hover {
   display: inline-block;
   padding: 0.75rem 1rem;
   border-radius: 4px;
-  color: #000;
+  color: #0C1559; /* navy text on pink */
   margin: 0 0.5rem;
 }
 
-/* Example category-based colors */
+/* Example category-based colors (all pinkish) */
 .flash-success {
-  background-color: #FFDBE9; /* green for success */
+  background-color: #FFDBE9; /* pink */
 }
 .flash-danger {
-  background-color: #FFDBE9; /* red for danger */
+  background-color: #FFDBE9; /* pink */
 }
 .flash-info {
-  background-color: #FFDBE9; /* blue for info */
+  background-color: #FFDBE9; /* pink */
 }
 .flash-warning {
-  background-color: #FFDBE9; /* orange for warning */
+  background-color: #FFDBE9; /* pink */
+}
+
+/* --------------------------
+   10) Browse Users Page
+--------------------------- */
+
+/* Wrap everything in a container to center */
+.browse-container {
+  text-align: center; /* center the heading, search form, user list, etc. */
+}
+
+/* Center the search form horizontally */
+.search-form {
+  display: flex;
+  justify-content: center; /* horizontally center the input + button */
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1rem auto; /* some spacing */
+}
+
+/* Make the search input + button bigger */
+.search-input {
+  padding: 0.5rem;
+  font-size: 1.1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.search-button {
+  background-color: #FFDBE9; /* pink */
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: #0C1559; /* navy text on pink */
+  border-radius: 4px;
+}
+.search-button:hover {
+  background-color: #F2C2D2; /* slightly darker pink */
+}
+
+/* Center the user list */
+.user-list {
+  list-style: none;
+  margin: 1rem auto;  /* center via margin auto */
+  padding: 0;
+  display: inline-block; /* so it doesn't stretch full width */
+  text-align: left;      /* keep star + text left-aligned inside */
+}
+
+/* Each user row bigger text */
+.user-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem; /* bigger text for each user row */
+}
+
+/* Star bullet */
+.user-item::before {
+  content: "★";
+  color: #0C1559;
+  margin-right: 0.5rem;
+  font-size: 1.5rem; /* or 2rem, whichever size you want */
+  line-height: 1;    /* helps keep the star vertically centered */
+}
+
+/* Username link bigger, bolder */
+.username-link {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #0C1559;
+  text-decoration: none;
+}
+.username-link:hover {
+  text-decoration: underline;
+}
+
+/* Follow/Unfollow forms & buttons bigger */
+.follow-form {
+  display: inline-block;
+  margin: 0;
+}
+
+.follow-button,
+.unfollow-button {
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 1rem;  /* slightly bigger button text */
+  padding: 0.4rem 0.8rem;
+}
+
+/* Follow button: navy background, white text */
+.follow-button {
+  background-color: #0C1559;
+  color: #fff;
+}
+.follow-button:hover {
+  background-color: #131f77;
+}
+
+/* Unfollow button: pink background, navy text */
+.unfollow-button {
+  background-color: #FFDBE9;
+  color: #0C1559;
+}
+.unfollow-button:hover {
+  background-color: #F2C2D2;
+}
+
+/* --------------------------
+   11) Profile Follow Links
+--------------------------- */
+/* Container around the two links (optional) */
+.profile-follow-links {
+  margin: 1rem 0;          /* spacing above/below */
+  text-align: center;      /* center the links horizontally */
+}
+
+/* Individual link styles to look like pink boxes */
+.follow-link {
+  display: inline-block;
+  margin: 0 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #FFDBE9;  /* pink background */
+  color: #0C1559;             /* navy text */
+  text-decoration: none;      /* remove underline */
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+}
+
+.follow-link:hover {
+  background-color: #F2C2D2; /* slightly darker pink on hover */
+}
+
+/*-------------
+  max min
+--------------*/
+.price-filter-form {
+  display: flex;               /* put them on one row */
+  align-items: center;         /* vertically center inputs + button */
+  gap: 0.5rem;                 /* space between elements */
+  margin: 1rem 0;             /* spacing above/below the form */
+  justify-content: center; /* horizontally center */
+}
+
+.price-filter-form label {
+  font-weight: bold;
+  font-family: 'Playfair Display', serif;
+  color: #0C1559; /* navy text */
+}
+
+.price-filter-form input {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #0C1559;   /* navy border */
+  border-radius: 4px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  color: #0C1559;              /* navy text */
+  background-color: #fff;      /* white background */
+}
+
+.price-filter-form input::placeholder {
+  color: #aaa;                 /* lighter text for placeholder */
+}
+
+.price-filter-form button {
+  background-color: #FFDBE9;   /* pink background */
+  color: #0C1559;              /* navy text */
+  border: none;
+  border-radius: 4px;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+}
+
+.price-filter-form button:hover {
+  background-color: #F2C2D2;   /* darker pink on hover */
 }

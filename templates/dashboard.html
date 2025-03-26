@@ -7,14 +7,30 @@
 <h1>Suggested Items</h1>
 
 <!-- Price Filter Form -->
-<form method="GET" action="{{ url_for('dashboard') }}">
-    <label for="min_price">Min Price:</label>
-    <input type="number" name="min_price" value="{{ min_price|default(0) }}" min="0">
+<form method="GET" action="{{ url_for('dashboard') }}" class="price-filter-form">
+    <label for="min_price" class="price-label">Min Price:</label>
+    <input 
+      type="number" 
+      name="min_price" 
+      id="min_price" 
+      value="{{ min_price|default(0) }}" 
+      min="0" 
+      placeholder="0" 
+      class="price-input"
+    >
 
-    <label for="max_price">Max Price:</label>
-    <input type="number" name="max_price" value="{{ max_price|default(999999) }}" min="0">
+    <label for="max_price" class="price-label">Max Price:</label>
+    <input 
+      type="number" 
+      name="max_price" 
+      id="max_price" 
+      value="{{ max_price|default(999999) }}" 
+      min="0" 
+      placeholder="999999" 
+      class="price-input"
+    >
 
-    <button type="submit">Filter</button>
+    <button type="submit" class="price-filter-button">Filter</button>
 </form>
 
 <hr>

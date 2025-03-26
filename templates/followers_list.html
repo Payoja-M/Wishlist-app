@@ -1,15 +1,49 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Followers of {{ user.username }}</h1>
-<ul>
+
+<!-- Use the same .user-list and .user-item classes -->
+<ul class="user-list">
   {% for follower in followers_list %}
-    <li>
-      <a href="{{ url_for('profile', username=follower.username) }}">
+    <li class="user-item">
+      <!-- Link to follower’s profile with .username-link class -->
+      <a 
+        href="{{ url_for('profile', username=follower.username) }}" 
+        class="username-link"
+      >
         {{ follower.username }}
       </a>
+
+      <!-- (Optional) If the logged-in user can follow/unfollow, show buttons -->
+      {% if current_user.is_authenticated and current_user != follower %}
+        {% if current_user.is_following(follower) %}
+          <form 
+            method="POST" 
+            action="{{ url_for('unfollow_user', username=follower.username) }}" 
+            class="follow-form"
+          >
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type="submit" class="unfollow-button">Unfollow</button>
+          </form>
+        {% else %}
+          <form 
+            method="POST" 
+            action="{{ url_for('follow_user', username=follower.username) }}" 
+            class="follow-form"
+          >
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type="submit" class="follow-button">Follow</button>
+          </form>
+        {% endif %}
+      {% endif %}
     </li>
   {% endfor %}
 </ul>
 
-<p><a href="{{ url_for('profile', username=user.username) }}">Back to Profile</a></p>
+<!-- A link back to the profile, with styling -->
+<p>
+  <a href="{{ url_for('profile', username=user.username) }}" class="custom-link">
+    Back to Profile
+  </a>
+</p>
 {% endblock %}

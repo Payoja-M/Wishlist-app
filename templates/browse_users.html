@@ -1,44 +1,42 @@
 {% extends "base.html" %}
-
 {% block title %}
-Browse Users
+Browse Other Users
 {% endblock %}
 
 {% block content %}
 <h1>Browse Other Users</h1>
 
 <!-- Search Form -->
-<form method="POST">
-    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-    <input type="text" name="search_query" placeholder="Search by username" value="{{ query }}">
-    <button type="submit">Search</button>
+<form method="POST" class="search-form">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <input type="text" name="search_query" class="search-input"
+         placeholder="Search by username" value="{{ query }}">
+  <button type="submit" class="search-button">Search</button>
 </form>
 
-<ul>
-    {% for user in users %}
-    <li>
-        <!-- Link to the user's profile page -->
-        <a href="{{ url_for('profile', username=user.username) }}">
-            {{ user.username }}
-        </a>
+<ul class="user-list">
+  {% for user in users %}
+    <li class="user-item">
+      <a href="{{ url_for('profile', username=user.username) }}" class="username-link">
+        {{ user.username }}
+      </a>
 
-        {% if current_user.is_following(user) %}
-            <!-- Unfollow Form -->
-            <form action="{{ url_for('unfollow_user', username=user.username) }}" 
-                  method="POST" style="display:inline;">
-                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                <button type="submit">Unfollow</button>
-            </form>
-        {% else %}
-            <!-- Follow Form -->
-            <form action="{{ url_for('follow_user', username=user.username) }}" 
-                  method="POST" style="display:inline;">
-                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                <button type="submit">Follow</button>
-            </form>
-        {% endif %}
+      {% if current_user.is_following(user) %}
+        <!-- Unfollow Form -->
+        <form action="{{ url_for('unfollow_user', username=user.username) }}" 
+              method="POST" class="follow-form">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button type="submit" class="unfollow-button">Unfollow</button>
+        </form>
+      {% else %}
+        <!-- Follow Form -->
+        <form action="{{ url_for('follow_user', username=user.username) }}" 
+              method="POST" class="follow-form">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button type="submit" class="follow-button">Follow</button>
+        </form>
+      {% endif %}
     </li>
-    {% endfor %}
+  {% endfor %}
 </ul>
-
 {% endblock %}

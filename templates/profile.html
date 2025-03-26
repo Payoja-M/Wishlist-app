@@ -3,13 +3,12 @@
 {% block content %}
 <h1>{{ user.username }}'s Profile</h1>
 
-<!-- Show how many followers/following -->
-<p>
-  <a href="{{ url_for('view_followers', username=user.username) }}">
+<!-- Wrap your two links in a container and give them a class -->
+<p class="profile-follow-links">
+  <a href="{{ url_for('view_followers', username=user.username) }}" class="follow-link">
     Followers: {{ user.followers.count() }}
   </a>
-  |
-  <a href="{{ url_for('view_following', username=user.username) }}">
+  <a href="{{ url_for('view_following', username=user.username) }}" class="follow-link">
     Following: {{ user.followed.count() }}
   </a>
 </p>
@@ -18,19 +17,13 @@
 {% if current_user.is_authenticated and current_user != user %}
   {% if current_user.is_following(user) %}
     <form method="POST" action="{{ url_for('unfollow_user', username=user.username) }}">
-      <!-- Hidden CSRF token -->
       <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-      <button type="submit" class="btn">
-        Unfollow
-      </button>
+      <button type="submit" class="btn">Unfollow</button>
     </form>
   {% else %}
     <form method="POST" action="{{ url_for('follow_user', username=user.username) }}">
-      <!-- Hidden CSRF token -->
       <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-      <button type="submit" class="btn">
-        Follow
-      </button>
+      <button type="submit" class="btn">Follow</button>
     </form>
   {% endif %}
 {% endif %}
