@@ -385,3 +385,36 @@ a.custom-link:hover {
 .price-filter-form button:hover {
   background-color: #F2C2D2;   /* darker pink on hover */
 }
+
+/* --------------------------
+   Custom Styled Follow Buttons
+--------------------------- */
+
+.profile-follow-button {
+  display: block;      /* each button on its own line */
+  margin: 0 auto;      /* auto margin on left/right centers it */
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  font-family: 'Playfair Display', serif;
+  padding: 0.5rem 1.2rem;
+}
+
+/* Follow = navy button, white text */
+.profile-follow-button.follow {
+  background-color: #0C1559;
+  color: #fff;
+}
+.profile-follow-button.follow:hover {
+  background-color: #131f77;
+}
+
+/* Unfollow = pink button, navy text */
+.profile-follow-button.unfollow {
+  background-color: #FFDBE9;
+  color: #0C1559;
+}
+.profile-follow-button.unfollow:hover {
+  background-color: #F2C2D2;
+}
