@@ -47,7 +47,7 @@ def load_user(user_id):
 @app.route('/')
 def home():
     """Basic homepage route."""
-    return render_template(url_for('login'))
+    return redirect(url_for('login'))
 
 # ---------- REGISTER ----------
 @app.route('/register', methods=['GET', 'POST'])
