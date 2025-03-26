@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+
+  <!-- Google Fonts: one whimsical script + one elegant serif -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link 
+  href="https://fonts.googleapis.com/css2?family=Dawning+of+a+New+Day&family=Playfair+Display:wght@400;700&display=swap" 
+  rel="stylesheet">
+
+
+  <!-- Link to external CSS (Flask style) -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+  <!-- If not using Flask, you can do:
+       <link rel="stylesheet" href="login.css">
+  -->
+</head>
+<body>
+  <header>
+    <h1>Create Your Wishlist</h1>
+  </header>
+
+  <!-- Login Box -->
+  <div class="login-box">
+    <!-- Tape corners (only top-left and bottom-right) -->
+    <div class="tape tape-top-left"></div>
+    <div class="tape tape-bottom-right"></div>
+
+    <h2>Welcome Back</h2>
+
+    <form action="/login" method="POST">
+      <!-- Flask-WTF CSRF token if needed -->
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+
+      <button type="submit">Login</button>
+    </form>
+
+    <div class="signup-link">
+      <p>Don’t have an account? 
+        <a href="/register">Sign up here</a>
+      </p>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register</title>
+
+  <!-- Google Fonts: same as the login page -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Dawning+of+a+New+Day&family=Playfair+Display:wght@400;700&display=swap" 
+    rel="stylesheet"
+  >
+
+  <!-- Link to external CSS (Flask style). If not using Flask, just do: <link rel="stylesheet" href="register.css"> -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+</head>
+<body>
+  <header>
+    <h1>Create Your Wishlist</h1>
+  </header>
+
+  <!-- Register Box -->
+  <div class="register-box">
+    <!-- Tape corners (top-left, bottom-right) -->
+    <div class="tape tape-top-left"></div>
+    <div class="tape tape-bottom-right"></div>
+
+    <h2>Register</h2>
+
+    <form action="/register" method="POST">
+      <!-- Flask-WTF CSRF token (optional) -->
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+
+      <button type="submit">Register</button>
+    </form>
+
+    <div class="login-link">
+      <p>Already have an account? 
+        <a href="/login">Login here</a>
+      </p>
+    </div>
+  </div>
+</body>
+</html>

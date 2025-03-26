@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Create Wishlist
+{% endblock %}
+
+{% block content %}
+<h2>Create a New Wishlist</h2>
+
+<form action="{{ url_for('create_wishlist') }}" method="POST">
+  <!-- Flask-WTF CSRF if you use it -->
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+  <label for="name">Wishlist Name:</label><br>
+  <input type="text" id="name" name="name" required><br><br>
+
+  <label for="is_public">
+    <input type="checkbox" id="is_public" name="is_public" value="yes">
+    Make it Public?
+  </label><br><br>
+
+  <label for="cover_image_url">Cover Image URL:</label><br>
+  <input type="url" id="cover_image_url" name="cover_image_url"><br><br>
+
+  <button type="submit">Create Wishlist</button>
+</form>
+
+<hr>
+<a href="{{ url_for('view_wishlists') }}">View My Wishlists</a>
+{% endblock %}

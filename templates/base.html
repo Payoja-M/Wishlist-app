@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Wishlist App{% endblock %}</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Dawning+of+a+New+Day&family=Playfair+Display:wght@400;700&display=swap" 
+    rel="stylesheet"
+  >
+
+  <!-- Link to external CSS (base.css) -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+</head>
+<body>
+  <!-- Horizontal Nav at the top -->
+  <header class="navbar">
+    <a href="{{ url_for('profile', username=current_user.username) }}">Home</a>
+    <a href="{{ url_for('dashboard') }}">dashboard</a>
+    <a href="{{ url_for('view_wishlists') }}">create wishlists</a>
+    <a href="{{ url_for('browse_users') }}">browse users</a>
+    <a href="{{ url_for('logout') }}">logout</a>
+  </header>
+
+  <!-- Flash banner container -->
+  <div class="flash-banner">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="flash-message flash-{{ category }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+  </div>
+
+  <!-- Main content for child templates -->
+  <main>
+    {% block content %}
+    <!-- Child pages override this block -->
+    {% endblock %}
+  </main>
+
+  <!-- Optional: Fade out flash banner after 3 seconds -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Wait 3 seconds, then fade out the flash banner
+      setTimeout(function() {
+        const flashBanner = document.querySelector('.flash-banner');
+        if (flashBanner) {
+          // Fade out smoothly over 0.5s
+          flashBanner.style.transition = 'opacity 0.5s ease';
+          flashBanner.style.opacity = '0';
+          setTimeout(function() {
+            // Then hide it completely
+            flashBanner.style.display = 'none';
+          }, 500);
+        }
+      }, 3000);
+    });
+  </script>
+</body>
+</html>

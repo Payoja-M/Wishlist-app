@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Edit Wishlist</h1>
+
+<form method="POST" action="">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+  <!-- Name -->
+  <label for="name">Wishlist Name:</label>
+  <input type="text" name="name" value="{{ wishlist.name }}" required>
+  <br><br>
+
+  <!-- Cover Image URL -->
+  <label for="cover_image_url">Cover Image URL:</label>
+  <input type="text" name="cover_image_url" value="{{ wishlist.cover_image_url }}">
+  <br><br>
+
+  <!-- Public Checkbox -->
+  <label>
+    <input type="checkbox" name="is_public" value="yes"
+      {% if wishlist.is_public %} checked {% endif %}
+    >
+    Make Wishlist Public
+  </label>
+  <br><br>
+
+  <button type="submit">Update Wishlist</button>
+</form>
+{% endblock %}

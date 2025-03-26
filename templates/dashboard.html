@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}
+  Suggested Items
+{% endblock %}
+
+{% block content %}
+<h1>Suggested Items</h1>
+
+<!-- Price Filter Form -->
+<form method="GET" action="{{ url_for('dashboard') }}">
+    <label for="min_price">Min Price:</label>
+    <input type="number" name="min_price" value="{{ min_price|default(0) }}" min="0">
+
+    <label for="max_price">Max Price:</label>
+    <input type="number" name="max_price" value="{{ max_price|default(999999) }}" min="0">
+
+    <button type="submit">Filter</button>
+</form>
+
+<hr>
+
+{% if items and items|length > 0 %}
+  <!-- Use a flex or grid container for item “cards” -->
+  <ul class="wishlist-items">
+    {% for item in items %}
+      <li class="item-card">
+        <!-- Display item image if available -->
+        {% if item.product_image_url %}
+          <p>
+            <img 
+              src="{{ item.product_image_url }}"
+              alt="{{ item.product_name }}"
+              style="max-width: 150px; height: auto;"
+            >
+          </p>
+        {% endif %}
+
+        <!-- Product name -->
+        <p><strong>{{ item.product_name }}</strong></p>
+        
+        <!-- Link to product -->
+        {% if item.product_link %}
+          <p>
+            <a href="{{ item.product_link }}" target="_blank" rel="noopener noreferrer">
+              View Product
+            </a>
+          </p>
+        {% endif %}
+
+        <!-- Show numeric price (if your model uses price_range) -->
+        {% if item.price_range %}
+          <p>Price: {{ item.price_range }}</p>
+        {% endif %}
+
+        <!-- Link to the single wishlist page -->
+        <p>
+          From Wishlist:
+          <a href="{{ url_for('view_wishlist', wishlist_id=item.wishlist_id) }}">
+            {{ item.wishlist.name }}
+          </a>
+        </p>
+
+        <!-- Link to the wishlist owner's profile -->
+        <p>
+          by
+          <a href="{{ url_for('profile', username=item.wishlist.user.username) }}">
+            {{ item.wishlist.user.username }}
+          </a>
+        </p>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No items found in this price range.</p>
+{% endif %}
+{% endblock %}
+

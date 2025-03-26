@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Edit Item</h1>
+
+<form method="POST">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+  <label for="product_name">Product Name:</label><br>
+  <input type="text" name="product_name" value="{{ item.product_name }}" required><br><br>
+
+  <label for="product_link">Product Link:</label><br>
+  <input type="text" name="product_link" value="{{ item.product_link }}"><br><br>
+
+  <label for="price_range">Price Range:</label><br>
+  <input type="text" name="price_range" value="{{ item.price_range }}"><br><br>
+
+  <label for="notes">Notes:</label><br>
+  <textarea name="notes">{{ item.notes }}</textarea><br><br>
+
+  <!-- NEW: product_image_url -->
+  <label for="product_image_url">Product Image URL:</label><br>
+  <input type="text" name="product_image_url" value="{{ item.product_image_url }}"><br><br>
+
+  <button type="submit">Update Item</button>
+</form>
+{% endblock %}

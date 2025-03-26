@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Add a New Item to {{ wishlist.name }}</h1>
+
+<form method="POST">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+  <label for="product_name">Product Name:</label><br>
+  <input type="text" name="product_name" required><br><br>
+
+  <label for="product_link">Product Link:</label><br>
+  <input type="text" name="product_link"><br><br>
+
+  <label for="price">Price Range:</label><br>
+  <input type="text" name="price"><br><br>
+
+  <label for="notes">Notes:</label><br>
+  <textarea name="notes"></textarea><br><br>
+
+  <!-- NEW FIELD for the item image -->
+  <label for="product_image_url">Product Image URL:</label><br>
+  <input type="text" name="product_image_url"><br><br>
+
+  <button type="submit">Add Item</button>
+</form>
+{% endblock %}

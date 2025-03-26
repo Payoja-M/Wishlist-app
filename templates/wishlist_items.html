@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {{ wishlist.name }}
+{% endblock %}
+
+{% block content %}
+<h1>{{ wishlist.name }}</h1>
+
+<!-- If there are items in this wishlist, list them -->
+{% if wishlist.items and wishlist.items|length > 0 %}
+  <!-- We change class to "wishlist-items" and apply flex styling via CSS -->
+  <ul class="wishlist-items">
+    {% for item in wishlist.items %}
+      <li class="item-card">
+        <!-- Image on top -->
+        {% if item.product_image_url %}
+          <p>
+            <img 
+              src="{{ item.product_image_url }}"
+              alt="{{ item.product_name }}"
+              style="max-width: 150px; height: auto;"
+            >
+          </p>
+        {% endif %}
+
+        <!-- Product name below image -->
+        <p><strong>{{ item.product_name }}</strong></p>
+
+        <!-- Optional: link to external product page -->
+        {% if item.product_link %}
+          <p>
+            <a href="{{ item.product_link }}" target="_blank" rel="noopener noreferrer">
+              View Product
+            </a>
+          </p>
+        {% endif %}
+
+        <!-- Show price if available -->
+        {% if item.price_range is not none %}
+          <p>Price: ${{ "%.2f" % item.price_range }}</p>
+        {% endif %}
+
+        <!-- Show notes if available -->
+        {% if item.notes %}
+          <p>Notes: {{ item.notes }}</p>
+        {% endif %}
+
+        <!-- Only NON-owners see purchased logic -->
+        {% if current_user.id != wishlist.user.id %}
+          {% if item.is_crossed_off %}
+            <p>Purchased!</p>
+            
+            <!-- If item is purchased, show who purchased it if you want -->
+            {% if item.purchased_by %}
+              <p>Purchased by user #{{ item.purchased_by }}</p>
+            {% endif %}
+            
+            <!-- Un-cross if current user is the purchaser -->
+            {% if current_user.id == item.purchased_by %}
+              <p>
+                <form action="{{ url_for('uncross_off_item', item_id=item.id) }}"
+                      method="POST">
+                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                  <button type="submit" class="link-button">
+                    Un-cross
+                  </button>
+                </form>
+              </p>
+            {% endif %}
+          {% else %}
+            <p>Not purchased yet.</p>
+
+            <!-- Cross Off only if current user is a friend of the owner (and not the owner) -->
+            {% if current_user.is_friends_with(wishlist.user) %}
+              <p>
+                <form action="{{ url_for('cross_off_item', item_id=item.id) }}"
+                      method="POST">
+                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                  <button type="submit"
+                          class="link-button"
+                          onclick="return confirm('Are you sure you want to cross off this item?');">
+                    Cross Off
+                  </button>
+                </form>
+              </p>
+            {% endif %}
+          {% endif %}
+        {% else %}
+          <!-- The owner sees NOTHING about purchased status or cross/un-cross buttons here -->
+        {% endif %}
+
+        <!-- If current_user is wishlist owner, show “Edit” link and “Delete Item” form -->
+        {% if current_user.id == wishlist.user.id %}
+          <p>
+            <a href="{{ url_for('edit_item', wishlist_id=wishlist.id, item_id=item.id) }}">
+              Edit
+            </a>
+          </p>
+          {% if not item.is_crossed_off %}
+            <p>
+              <form action="{{ url_for('delete_item', wishlist_id=wishlist.id, item_id=item.id) }}"
+                    method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button type="submit"
+                        class="link-button"
+                        onclick="return confirm('Are you sure you want to delete this item?');">
+                  Delete Item
+                </button>
+              </form>
+            </p>
+          {% endif %}
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No items in this wishlist yet.</p>
+{% endif %}
+
+<hr>
+<br>
+
+<!-- If current_user is the owner, show “Add an Item” link and “Edit Wishlist” link -->
+{% if current_user.id == wishlist.user.id %}
+  <a href="{{ url_for('add_item', wishlist_id=wishlist.id) }}">Add an Item</a>
+  <br>
+  <a href="{{ url_for('edit_wishlist', wishlist_id=wishlist.id) }}">Edit Wishlist</a>
+{% endif %}
+
+<br>
+<!-- Delete entire wishlist (owner only) -->
+{% if current_user.id == wishlist.user.id %}
+  <a href="#"
+     onclick="deleteWishlist(event, '{{ url_for('delete_wishlist', wishlist_id=wishlist.id) }}')">
+    Delete Wishlist
+  </a>
+{% endif %}
+
+<script>
+  function deleteWishlist(e, deleteUrl) {
+    e.preventDefault();
+    if (confirm('Are you sure you want to delete this wishlist?')) {
+      fetch(deleteUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': '{{ csrf_token() }}'
+        },
+        body: JSON.stringify({})
+      })
+      .then(response => {
+        if (response.ok) {
+          window.location.href = "{{ url_for('view_wishlists') }}";
+        } else {
+          alert("Error deleting wishlist");
+        }
+      })
+      .catch(error => {
+        console.error(error);
+        alert("Network error or server is unreachable.");
+      });
+    }
+  }
+</script>
+
+<br>
+<p>
+  <a href="{{ url_for('profile', username=wishlist.user.username) }}">
+    Back to All Wishlists
+  </a>
+</p>
+{% endblock %}
+

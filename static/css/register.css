@@ -1,0 +1,151 @@
+/* -------------------------
+   1. Global Reset & Body
+-------------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* 
+     Body with background image:
+     - background-size: cover ensures the image fills the screen.
+     - background-position: center keeps it centered.
+  */
+  body {
+    background: #FAF8F5 url("../img/background.png") no-repeat center;
+    background-size: cover;
+    font-family: 'Playfair Display', serif;
+    color: #4A3F36;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 40px;
+  }
+  
+  /* -------------------------
+     2. Header
+  -------------------------- */
+  header {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  header h1 {
+    font-family: 'Dawning of a New Day', cursive;
+    font-size: 3rem;
+    color: #4A3F36;
+    letter-spacing: 1px;
+  }
+  
+  /* -------------------------
+     3. Register Box
+  -------------------------- */
+  .register-box {
+    position: relative;
+    width: 400px;
+    background: #fff;
+    border-radius: 4px;
+    padding: 30px 40px 40px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+  }
+  
+  .register-box h2 {
+    text-align: center;
+    font-family: 'Dawning of a New Day', cursive;
+    font-size: 2rem;
+    color: #4A3F36;
+    margin-bottom: 20px;
+  }
+  
+  /* -------------------------
+     4. Tape Corners
+     (only top-left & bottom-right, no rotation)
+  -------------------------- */
+  .tape {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.9;
+  }
+  
+  /* Replace ../img/tape-corner.png with your own tape image path */
+  .tape-top-left {
+    top: -10px;
+    left: -10px;
+    background-image: url("../img/tape-corner.png");
+  }
+  
+  .tape-bottom-right {
+    bottom: -10px;
+    right: -10px;
+    background-image: url("../img/tape-corner.png");
+  }
+  
+  /* -------------------------
+     5. Form & Inputs
+  -------------------------- */
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #4A3F36;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #D2CFCB;
+    border-radius: 4px;
+    background: #FDFDFC;
+    color: #4A3F36;
+    font-size: 1rem;
+  }
+  
+  button[type="submit"] {
+    background: #0C1559; /* maroon background */
+    color: #fff;         /* white text */
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    transition: background 0.3s;
+  }
+  
+  button[type="submit"]:hover {
+    background: #b19ba2; /* adjust if you want a maroon hover color */
+  }
+  
+  /* -------------------------
+     6. Login Link
+  -------------------------- */
+  .login-link {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 0.9rem;
+  }
+  
+  .login-link a {
+    color: #0C1559;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  .login-link a:hover {
+    text-decoration: underline;
+  }
+  
