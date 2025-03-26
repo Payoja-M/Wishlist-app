@@ -9,7 +9,12 @@ from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = 'static/uploads'
 
-app = Flask(__name__, instance_relative_config=True, template_folder="templates")
+app = Flask(
+    __name__,
+    instance_relative_config=True,
+    template_folder="templates",
+    static_folder="static"
+)
 app.config['SECRET_KEY'] = 'supersecretkey'  # Change for production
 
 # -- Build absolute path to instance/database.db --
